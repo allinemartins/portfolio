@@ -10,14 +10,15 @@ The portfolio is structured by technology categories, making it easy to navigate
 ---
 
 ## 📂 Repository Structure
-portfolio/
+
+```portfolio/
 ├── java/ # Java and Spring Boot projects
 ├── react/ # React projects and frontend applications
 ├── javascript/ # Utility libraries and JS mini-projects
 ├── php/ # PHP applications and backend examples
 ├── sql-plsql/ # SQL queries, PL/SQL procedures, triggers and database scripts
 └── docs/ # Documentation, architecture notes, diagrams and studies
-
+```
 Each subfolder contains its own README with project descriptions, setup instructions and architecture details.
 
 ---
