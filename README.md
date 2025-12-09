@@ -1,4 +1,4 @@
-# Developer Portfolio ![Status](https://img.shields.io/badge/portfolio-in%20progress-yellow)
+# Developer Portfolio
 
 Welcome to my developer portfolio repository.  
 This space organizes the projects I am building to demonstrate my knowledge, technical background and continuous learning in modern software development.
@@ -7,15 +7,22 @@ The portfolio is structured by technology categories, making it easy to navigate
 
 ---
 
+## 📌 Status ![Status](https://img.shields.io/badge/portfolio-in%20progress-yellow)
+
+This portfolio is under active construction and will evolve continuously as I build new projects and refine existing ones.
+
+---
+
 ## 📂 Repository Structure
 
-```portfolio/
-├── java/         # Java and Spring Boot projects
-├── react/        # React projects and frontend applications
-├── javascript/   # Utility libraries and JS mini-projects
-├── php/          # PHP applications and backend examples
-├── sql-plsql/    # SQL queries, PL/SQL procedures, triggers and database scripts
-└── docs/         # Documentation, architecture notes, diagrams and studies
+```
+portfolio/
+    ├── java/         # Java and Spring Boot projects
+    ├── react/        # React projects and frontend applications
+    ├── javascript/   # Utility libraries and JS mini-projects
+    ├── php/          # PHP applications and backend examples
+    ├── sql-plsql/    # SQL queries, PL/SQL procedures, triggers and database scripts
+    └── docs/         # Documentation, architecture notes, diagrams and studies
 ```
 Each subfolder contains its own README with project descriptions, setup instructions and architecture details.
 
@@ -61,12 +68,6 @@ The goals of this portfolio are:
 - Packages and procedures  
 - Query optimization examples  
 - Audit triggers  
-
----
-
-## 📌 Status
-
-This portfolio is under active construction and will evolve continuously as I build new projects and refine existing ones.
 
 ---
 
