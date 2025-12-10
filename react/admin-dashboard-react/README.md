@@ -1,7 +1,7 @@
 # React Admin Dashboard
 
 ![Status](https://img.shields.io/badge/status-in%20progress-yellow)
-![React](https://img.shields.io/badge/React-18-blue)
+![React](https://img.shields.io/badge/React-19-blue)
 ![License](https://img.shields.io/badge/license-MIT-green)
 
 A simple and structured admin dashboard built with **React**.  
