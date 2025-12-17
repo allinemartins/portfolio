@@ -1,0 +1,115 @@
+.container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Header */
+.header {
+  height: 56px;
+  padding: 0 16px;
+  border-bottom: 1px solid #e5e7eb;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo {
+  font-weight: 600;
+}
+
+.user {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+/* Body */
+.body {
+  flex: 1;
+  display: flex;
+}
+
+/* Sidebar (hidden on mobile) */
+.sidebar {
+  display: none;
+}
+
+/* Main content */
+.main {
+  flex: 1;
+  padding: 16px;
+}
+
+/* Bottom navigation (mobile) */
+.bottomNav {
+  height: 56px;
+  border-top: 1px solid #e5e7eb;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.bottomNav a {
+  text-decoration: none;
+  font-size: 20px;
+}
+
+/* Links desktop */
+.link {
+  text-decoration: none;
+  color: #374151;
+  padding: 6px 8px;
+  border-radius: 6px;
+}
+
+.link:hover {
+  background-color: #f3f4f6;
+}
+
+.activeLink {
+  background-color: #e0e7ff;
+  color: #3730a3;
+  font-weight: 600;
+}
+
+/* Mobile icons */
+.icon {
+  font-size: 22px;
+  color: #6b7280;
+  text-decoration: none;
+}
+
+.activeIcon {
+  font-size: 22px;
+  color: #4f46e5;
+}
+
+
+/* Desktop breakpoint */
+@media (min-width: 768px) {
+  .container {
+    flex-direction: column;
+  }
+
+  .body {
+    flex: 1;
+  }
+
+  .sidebar {
+    display: block;
+    width: 200px;
+    border-right: 1px solid #e5e7eb;
+    padding: 16px;
+  }
+
+  .sidebar nav {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .bottomNav {
+    display: none;
+  }
+}

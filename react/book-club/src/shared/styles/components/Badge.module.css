@@ -1,0 +1,19 @@
+.badge {
+  color: #fff;
+  padding: 4px 8px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.read {
+  background: var(--color-success);
+}
+
+.suggested {
+  background: var(--color-warning);
+}
+
+.next {
+  background: var(--color-primary);
+}

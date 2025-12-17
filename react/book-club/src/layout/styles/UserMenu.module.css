@@ -1,0 +1,60 @@
+.container {
+  position: relative;
+}
+
+.trigger {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background-color: #6366f1;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+}
+
+.name {
+  display: none;
+  font-size: 14px;
+}
+
+/* Mostrar nome no desktop */
+@media (min-width: 768px) {
+  .name {
+    display: block;
+  }
+}
+
+.dropdown {
+  position: absolute;
+  right: 0;
+  top: 44px;
+  background: white;
+  border: 1px solid #e5e7eb;
+  border-radius: 6px;
+  min-width: 120px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08);
+}
+
+.dropdown button {
+  width: 100%;
+  padding: 8px 12px;
+  background: none;
+  border: none;
+  text-align: left;
+  cursor: pointer;
+}
+
+.dropdown button:hover {
+  background-color: #f3f4f6;
+}
