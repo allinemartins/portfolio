@@ -4,20 +4,17 @@ import { PrivateRoute } from '../domains/auth/PrivateRoute';
 import { AppLayout } from '../layout/AppLayout';
 import { BookListPage } from '../domains/books/pages/BookListPage';
 import { DashboardPage } from '../domains/dashboard/pages/DashboardPage';
+import { RafflePage } from '../domains/raffle/pages/RafflePage';
 
-
-function RafflePage() {
-  return <h2>Sorteio</h2>;
-}
 
 export function AppRoutes() {
   return (
     <BrowserRouter>
       <Routes>
-        {/* pública */}
+        {/* public */}
         <Route path="/login" element={<LoginPage />} />
 
-        {/* protegidas */}
+        {/* private */}
         <Route
           element={
             <PrivateRoute>

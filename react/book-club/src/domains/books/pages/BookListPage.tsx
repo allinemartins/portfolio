@@ -11,18 +11,14 @@ type BookFilter = 'ALL' | BookStatus;
 export function BookListPage() {
   const { books } = useBookContext();
   const [filter, setFilter] = useState<BookFilter>('ALL');
-
-  // carregar filtro salvo
+  
   useEffect(() => {
     setFilter(loadBookFilter() as BookFilter);
   }, []);
-
-  // salvar filtro
+  
   useEffect(() => {
     saveBookFilter(filter);
   }, [filter]);
-
-  // 🔢 contadores
   const counters = useMemo(() => {
     return {
       ALL: books.length,

@@ -1,6 +1,7 @@
 import { createContext, useContext, useEffect, useState } from 'react';
 import type { Book, BookStatus } from './Book';
 import { loadBooks, saveBooks } from './book.storage';
+import { clearRaffle } from '../raffle/raffle.service';
 
 type BookContextType = {
   books: Book[];
@@ -28,31 +29,37 @@ export function BookProvider({ children }: { children: React.ReactNode }) {
 
   function updateStatus(id: string, nextStatus: BookStatus) {
     setBooks(prev => {
-      // se alguém virar LENDO
-      if (nextStatus === 'LENDO') {
-        return prev.map(book => {
-          if (book.id === id) {
-            return { ...book, status: 'LENDO' };
-          }
-
-          // se já estava lendo outro, finaliza
-          if (book.status === 'LENDO') {
+      return prev.map(book => {        
+        if (book.id !== id) {          
+          if (nextStatus === 'LENDO' && book.status === 'LENDO') {
             return { ...book, status: 'LIDO' };
           }
-
           return book;
-        });
-      }
+        }
+        
+        if (book.status === 'LIDO' && nextStatus === 'SUGERIDO') {
+          return book;
+        }
 
-      // outros fluxos normais
-      return prev.map(book =>
-        book.id === id ? { ...book, status: nextStatus } : book
-      );
+        return { ...book, status: nextStatus };
+      });
     });
+    
+    if (nextStatus === 'LIDO') {
+      clearRaffle();
+    }
   }
 
   function removeBook(id: string) {
-    setBooks(prev => prev.filter(book => book.id !== id));
+    setBooks(prev => {
+      const bookToRemove = prev.find(book => book.id === id);
+      
+      if (bookToRemove?.status === 'LENDO' || bookToRemove?.status === 'LIDO') {
+        return prev;
+      }
+
+      return prev.filter(book => book.id !== id);
+    });
   }
 
   return (

@@ -4,7 +4,6 @@
   flex-direction: column;
 }
 
-/* Header */
 .header {
   height: 56px;
   padding: 0 16px;
@@ -24,24 +23,20 @@
   align-items: center;
 }
 
-/* Body */
 .body {
   flex: 1;
   display: flex;
 }
 
-/* Sidebar (hidden on mobile) */
 .sidebar {
   display: none;
 }
 
-/* Main content */
 .main {
   flex: 1;
   padding: 16px;
 }
 
-/* Bottom navigation (mobile) */
 .bottomNav {
   height: 56px;
   border-top: 1px solid #e5e7eb;
@@ -55,7 +50,6 @@
   font-size: 20px;
 }
 
-/* Links desktop */
 .link {
   text-decoration: none;
   color: #374151;
@@ -73,7 +67,6 @@
   font-weight: 600;
 }
 
-/* Mobile icons */
 .icon {
   font-size: 22px;
   color: #6b7280;
@@ -86,7 +79,6 @@
 }
 
 
-/* Desktop breakpoint */
 @media (min-width: 768px) {
   .container {
     flex-direction: column;

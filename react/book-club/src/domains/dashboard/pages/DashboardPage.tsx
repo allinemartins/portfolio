@@ -1,9 +1,11 @@
 import { useMemo } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useBookContext } from '../../books/book.context';
 import styles from './styles/DashboardPage.module.css';
 
 export function DashboardPage() {
-  const { books } = useBookContext();
+  const { books, updateStatus } = useBookContext();
+  const navigate = useNavigate();
 
   const summary = useMemo(() => ({
     total: books.length,
@@ -16,16 +18,27 @@ export function DashboardPage() {
     [books]
   );
 
+  const hasSuggested = books.some(b => b.status === 'SUGERIDO');
+  const hasReading = summary.lendo > 0;
+
+  const raffleStatus = hasReading
+    ? 'Livro em leitura'
+    : hasSuggested
+      ? 'Pronto para sorteio'
+      : 'Aguardando sugestões';
+
   return (
     <div className={styles.container}>
-      {/* 👋 Saudação */}
+      
       <header className={styles.header}>
         <h2>Olá 👋</h2>
         <p>Bem-vinda ao Clube do Livro</p>
       </header>
 
-      {/* 📖 Livro atual */}
-      <section className={styles.card}>
+      
+      <section
+        className={`${styles.card} ${currentBook ? styles.cardHighlight : ''}`}
+      >
         <h3>📖 Livro atual</h3>
 
         {currentBook ? (
@@ -33,7 +46,15 @@ export function DashboardPage() {
             <div>
               <strong>{currentBook.title}</strong>
               <p>{currentBook.author}</p>
-              <span className={styles.badge}>Em leitura</span>
+
+              <span className={styles.badge}>Lendo agora</span>
+
+              <button
+                className={styles.secondaryButton}
+                onClick={() => updateStatus(currentBook.id, 'LIDO')}
+              >
+                Marcar como lido
+              </button>
             </div>
 
             {currentBook.thumbnail && (
@@ -45,25 +66,52 @@ export function DashboardPage() {
             )}
           </div>
         ) : (
-          <p className={styles.muted}>Nenhum livro em leitura</p>
+          <p className={styles.muted}>
+            Nenhum livro em leitura no momento 📭
+          </p>
         )}
       </section>
 
-      {/* 📊 Métricas */}
+      
       <section className={styles.stats}>
-        <StatCard label="Livros no clube" value={summary.total} />
+        <StatCard label="Total de livros" value={summary.total} />
         <StatCard label="Livros lidos" value={summary.lidos} />
-        <StatCard label="Em leitura" value={summary.lendo} />
+        <StatCard label="Lendo agora" value={summary.lendo} />
       </section>
 
-      {/* 🎲 Sorteio */}
+      
       <section className={styles.card}>
         <h3>🎲 Sorteio</h3>
-        <p>Status: <strong>Aguardando sugestões</strong></p>
 
-        <button className={styles.primaryButton}>
-          Ir para sorteio
-        </button>
+        <p>
+          Status:{' '}
+          <strong
+            className={
+              hasReading
+                ? styles.warning
+                : hasSuggested
+                  ? styles.success
+                  : styles.muted
+            }
+          >
+            {raffleStatus}
+          </strong>
+        </p>
+
+        {!hasReading && hasSuggested && (
+          <button
+            className={styles.primaryButton}
+            onClick={() => navigate('/raffle')}
+          >
+            Ir para sorteio
+          </button>
+        )}
+
+        {hasReading && (
+          <p className={styles.muted}>
+            Finalize o livro atual para liberar um novo sorteio.
+          </p>
+        )}
       </section>
     </div>
   );

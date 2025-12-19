@@ -28,7 +28,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       return;
     }
 
-    // email + senha fake
+    // email + password fake
     setUser({
       id: 'email-user',
       name: credentials.email!,
