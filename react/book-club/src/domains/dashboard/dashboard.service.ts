@@ -1,7 +1,7 @@
 import type { DashboardData } from './dashboard.types';
 
 export async function getDashboardData(): Promise<DashboardData> {
-  // simula delay de API
+  // simulation delay API
   return new Promise(resolve => {
     setTimeout(() => {
       resolve({

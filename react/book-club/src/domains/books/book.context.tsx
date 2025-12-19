@@ -29,17 +29,14 @@ export function BookProvider({ children }: { children: React.ReactNode }) {
 
   function updateStatus(id: string, nextStatus: BookStatus) {
     setBooks(prev => {
-      return prev.map(book => {
-        // não é o livro alvo
-        if (book.id !== id) {
-          // se alguém virar LENDO, finaliza o outro que estava lendo
+      return prev.map(book => {        
+        if (book.id !== id) {          
           if (nextStatus === 'LENDO' && book.status === 'LENDO') {
             return { ...book, status: 'LIDO' };
           }
           return book;
         }
-
-        // 🔒 REGRA 1: livro LIDO nunca volta para SUGERIDO
+        
         if (book.status === 'LIDO' && nextStatus === 'SUGERIDO') {
           return book;
         }
@@ -47,8 +44,7 @@ export function BookProvider({ children }: { children: React.ReactNode }) {
         return { ...book, status: nextStatus };
       });
     });
-
-    // 🧹 Limpa sorteio SOMENTE quando a leitura é finalizada
+    
     if (nextStatus === 'LIDO') {
       clearRaffle();
     }
@@ -57,8 +53,7 @@ export function BookProvider({ children }: { children: React.ReactNode }) {
   function removeBook(id: string) {
     setBooks(prev => {
       const bookToRemove = prev.find(book => book.id === id);
-
-      // 🔒 REGRA: não permitir excluir livro em leitura
+      
       if (bookToRemove?.status === 'LENDO' || bookToRemove?.status === 'LIDO') {
         return prev;
       }

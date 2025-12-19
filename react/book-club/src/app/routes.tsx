@@ -11,10 +11,10 @@ export function AppRoutes() {
   return (
     <BrowserRouter>
       <Routes>
-        {/* pública */}
+        {/* public */}
         <Route path="/login" element={<LoginPage />} />
 
-        {/* protegidas */}
+        {/* private */}
         <Route
           element={
             <PrivateRoute>

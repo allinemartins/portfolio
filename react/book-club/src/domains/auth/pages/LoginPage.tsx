@@ -13,10 +13,10 @@ export function LoginPage() {
   function handleSubmit(e) {
     e.preventDefault();
 
-    // 🔐 Login fake por enquanto
+    // Login fake
     if (!email || !password) return;
 
-    // futuramente: auth API
+    // next step: authentication
     localStorage.setItem('user', JSON.stringify({ email }));
     login({ email, password });
     navigate('/dashboard');
@@ -26,7 +26,6 @@ export function LoginPage() {
     console.log(`Login com ${provider}`);
     login({ provider: provider.toLowerCase() });
     navigate('/dashboard');
-    // futuramente: OAuth
   }
 
   return (

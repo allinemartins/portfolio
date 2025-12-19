@@ -5,15 +5,15 @@ import styles from './styles/AppLayout.module.css';
 export function AppLayout() {  
   return (
     <div className={styles.container}>
-      {/* Header */}
+     
       <header className={styles.header}>
         <span className={styles.logo}>📚 Clubinho</span>
         <UserMenu />
       </header>
 
-      {/* Corpo */}
+      
       <div className={styles.body}>
-        {/* Sidebar (desktop) */}
+        
         <aside className={styles.sidebar}>
           <nav className={styles.nav}>
             <NavLink
@@ -45,13 +45,13 @@ export function AppLayout() {
           </nav>
         </aside>
 
-        {/* Conteúdo */}
+        
         <main className={styles.main}>
           <Outlet />
         </main>
       </div>
 
-      {/* Bottom navigation (mobile) */}
+      
       <footer className={styles.bottomNav}>
         <NavLink
           to="/dashboard"

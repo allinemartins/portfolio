@@ -47,7 +47,7 @@ export function BookForm() {
 
   return (
     <form onSubmit={handleSubmit}>
-      {/* Busca */}
+      
       <input
         placeholder="Buscar livro"
         value={search}
@@ -57,18 +57,18 @@ export function BookForm() {
         Buscar
       </button>
 
-      {/* Sugestões */}
+      
       {suggestions.map((book, i) => (
         <div key={i} onClick={() => handleSelectBook(book)}>
           {book.title} – {book.author}
         </div>
       ))}
 
-      {/* Dados */}
+      
       <input value={title} placeholder="Título" readOnly />
       <input value={author} placeholder="Autor" readOnly />
 
-      {/* STATUS AQUI 👇 */}
+      
       <select
         value={status}
         onChange={e => setStatus(e.target.value as BookStatus)}

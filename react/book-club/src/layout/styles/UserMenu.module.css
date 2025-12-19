@@ -28,7 +28,6 @@
   font-size: 14px;
 }
 
-/* Mostrar nome no desktop */
 @media (min-width: 768px) {
   .name {
     display: block;

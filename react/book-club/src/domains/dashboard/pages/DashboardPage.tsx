@@ -29,13 +29,13 @@ export function DashboardPage() {
 
   return (
     <div className={styles.container}>
-      {/* 👋 Saudação */}
+      
       <header className={styles.header}>
         <h2>Olá 👋</h2>
         <p>Bem-vinda ao Clube do Livro</p>
       </header>
 
-      {/* 📖 Livro atual */}
+      
       <section
         className={`${styles.card} ${currentBook ? styles.cardHighlight : ''}`}
       >
@@ -72,14 +72,14 @@ export function DashboardPage() {
         )}
       </section>
 
-      {/* 📊 Métricas */}
+      
       <section className={styles.stats}>
         <StatCard label="Total de livros" value={summary.total} />
         <StatCard label="Livros lidos" value={summary.lidos} />
         <StatCard label="Lendo agora" value={summary.lendo} />
       </section>
 
-      {/* 🎲 Sorteio */}
+      
       <section className={styles.card}>
         <h3>🎲 Sorteio</h3>
 
