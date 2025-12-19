@@ -22,6 +22,12 @@
   background: #fff;
 }
 
+/* Destaque livro atual */
+.cardHighlight {
+  border: 2px solid #6366f1;
+  background: #f5f7ff;
+}
+
 /* Livro atual */
 .currentBook {
   display: flex;
@@ -69,7 +75,7 @@
   color: #6b7280;
 }
 
-/* Botão */
+/* Botões */
 .primaryButton {
   margin-top: 12px;
   width: 100%;
@@ -82,7 +88,24 @@
   cursor: pointer;
 }
 
-/* Aux */
+.secondaryButton {
+  margin-top: 12px;
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #d1d5db;
+  background: #fff;
+  cursor: pointer;
+}
+
+/* Estados */
+.success {
+  color: #16a34a;
+}
+
+.warning {
+  color: #d97706;
+}
+
 .muted {
   color: #9ca3af;
 }

@@ -39,11 +39,11 @@ export function BookCard({ book }: { book: Book }) {
           <option value="LIDO">Lido</option>
         </select>
       </div>
-
       {/* 🗑️ Excluir */}
       <button
         onClick={() => removeBook(book.id)}
         aria-label="Excluir livro"
+        disabled={book.status === 'LENDO' || book.status === 'LIDO'}
       >
         🗑️
       </button>

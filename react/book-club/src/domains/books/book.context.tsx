@@ -1,6 +1,7 @@
 import { createContext, useContext, useEffect, useState } from 'react';
 import type { Book, BookStatus } from './Book';
 import { loadBooks, saveBooks } from './book.storage';
+import { clearRaffle } from '../raffle/raffle.service';
 
 type BookContextType = {
   books: Book[];
@@ -28,31 +29,42 @@ export function BookProvider({ children }: { children: React.ReactNode }) {
 
   function updateStatus(id: string, nextStatus: BookStatus) {
     setBooks(prev => {
-      // se alguém virar LENDO
-      if (nextStatus === 'LENDO') {
-        return prev.map(book => {
-          if (book.id === id) {
-            return { ...book, status: 'LENDO' };
-          }
-
-          // se já estava lendo outro, finaliza
-          if (book.status === 'LENDO') {
+      return prev.map(book => {
+        // não é o livro alvo
+        if (book.id !== id) {
+          // se alguém virar LENDO, finaliza o outro que estava lendo
+          if (nextStatus === 'LENDO' && book.status === 'LENDO') {
             return { ...book, status: 'LIDO' };
           }
-
           return book;
-        });
-      }
+        }
 
-      // outros fluxos normais
-      return prev.map(book =>
-        book.id === id ? { ...book, status: nextStatus } : book
-      );
+        // 🔒 REGRA 1: livro LIDO nunca volta para SUGERIDO
+        if (book.status === 'LIDO' && nextStatus === 'SUGERIDO') {
+          return book;
+        }
+
+        return { ...book, status: nextStatus };
+      });
     });
+
+    // 🧹 Limpa sorteio SOMENTE quando a leitura é finalizada
+    if (nextStatus === 'LIDO') {
+      clearRaffle();
+    }
   }
 
   function removeBook(id: string) {
-    setBooks(prev => prev.filter(book => book.id !== id));
+    setBooks(prev => {
+      const bookToRemove = prev.find(book => book.id === id);
+
+      // 🔒 REGRA: não permitir excluir livro em leitura
+      if (bookToRemove?.status === 'LENDO' || bookToRemove?.status === 'LIDO') {
+        return prev;
+      }
+
+      return prev.filter(book => book.id !== id);
+    });
   }
 
   return (
