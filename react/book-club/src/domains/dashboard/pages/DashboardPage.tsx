@@ -4,7 +4,7 @@ import { useBookContext } from '../../books/book.context';
 import styles from './styles/DashboardPage.module.css';
 
 export function DashboardPage() {
-  const { books, updateStatus } = useBookContext();
+  const { books, markAsReadByMember } = useBookContext();
   const navigate = useNavigate();
 
   const summary = useMemo(() => ({
@@ -29,74 +29,40 @@ export function DashboardPage() {
 
   return (
     <div className={styles.container}>
-      
       <header className={styles.header}>
         <h2>Olá 👋</h2>
         <p>Bem-vinda ao Clube do Livro</p>
       </header>
 
-      
-      <section
-        className={`${styles.card} ${currentBook ? styles.cardHighlight : ''}`}
-      >
+      <section className={styles.card}>
         <h3>📖 Livro atual</h3>
 
         {currentBook ? (
-          <div className={styles.currentBook}>
-            <div>
-              <strong>{currentBook.title}</strong>
-              <p>{currentBook.author}</p>
+          <>
+            <strong>{currentBook.title}</strong>
+            <p>{currentBook.author}</p>
 
-              <span className={styles.badge}>Lendo agora</span>
-
-              <button
-                className={styles.secondaryButton}
-                onClick={() => updateStatus(currentBook.id, 'LIDO')}
-              >
-                Marcar como lido
-              </button>
-            </div>
-
-            {currentBook.thumbnail && (
-              <img
-                src={currentBook.thumbnail}
-                alt={currentBook.title}
-                className={styles.cover}
-              />
-            )}
-          </div>
+            <button
+              className={styles.secondaryButton}
+              onClick={() => markAsReadByMember(currentBook.id)}
+            >
+              Marquei como lido
+            </button>
+          </>
         ) : (
-          <p className={styles.muted}>
-            Nenhum livro em leitura no momento 📭
-          </p>
+          <p className={styles.muted}>Nenhum livro em leitura</p>
         )}
       </section>
 
-      
       <section className={styles.stats}>
-        <StatCard label="Total de livros" value={summary.total} />
-        <StatCard label="Livros lidos" value={summary.lidos} />
-        <StatCard label="Lendo agora" value={summary.lendo} />
+        <StatCard label="Total" value={summary.total} />
+        <StatCard label="Lidos" value={summary.lidos} />
+        <StatCard label="Lendo" value={summary.lendo} />
       </section>
 
-      
       <section className={styles.card}>
         <h3>🎲 Sorteio</h3>
-
-        <p>
-          Status:{' '}
-          <strong
-            className={
-              hasReading
-                ? styles.warning
-                : hasSuggested
-                  ? styles.success
-                  : styles.muted
-            }
-          >
-            {raffleStatus}
-          </strong>
-        </p>
+        <p>Status: <strong>{raffleStatus}</strong></p>
 
         {!hasReading && hasSuggested && (
           <button
@@ -105,12 +71,6 @@ export function DashboardPage() {
           >
             Ir para sorteio
           </button>
-        )}
-
-        {hasReading && (
-          <p className={styles.muted}>
-            Finalize o livro atual para liberar um novo sorteio.
-          </p>
         )}
       </section>
     </div>

@@ -1,34 +1,47 @@
 # 📚 Book Club App
 
-Frontend application built with **React + TypeScript**, focused on managing a book club.  
-This project was designed as a **real product**, prioritizing mobile experience, clear business rules, and an architecture prepared for future backend integration.
+Frontend application built with **React + TypeScript**, focused on managing a book club experience.
+This project was designed as a **real-world product**, prioritizing mobile usability, clear business rules, and an architecture prepared for **backend integration and multi-tenant authentication**.
 
 ---
 
 ## ✨ Features
 
+### 🔐 Authentication
+- Authentication via **Keycloak (OpenID Connect)**
+- Authorization Code Flow (PKCE)
+- JWT-based security
+- Ready for future **multi-tenant** support using Keycloak realms
+- No sensitive data stored in the frontend
+
+---
+
 ### 📊 Dashboard
-- Overview of the book club
-- Current book in reading (only **one book can be in progress at a time**)
+- Book club overview
+- Current book in progress  
+  > ⚠️ Only **one book can be in "Reading" status** at a time
 - Quick metrics:
   - Total books
   - Books read
   - Books currently being read
 - Book draw section (in progress)
 
-### 📚 Books
+---
+
+### 📚 Books Management
 - Add books with:
   - Title
   - Author
-  - Status (Suggested, Reading, Read)
+  - Status: **Suggested | Reading | Read**
 - Book search powered by **Google Books API**
-- Book cover display
-- Business rules:
-  - Only **one book can have status "Reading"**
+- Book cover preview
+- Business rules enforced at the domain layer:
+  - Only one book can have status **"Reading"**
   - Controlled status transitions
 - Remove books
-- Filter by status using **tabs with counters**
+- Filter books by status using **tabs with counters**
 - Automatic persistence using `localStorage`
+  - Easily replaceable by a REST API
 
 ---
 
@@ -36,11 +49,11 @@ This project was designed as a **real product**, prioritizing mobile experience,
 
 - **Context API** for global state management
 - Business rules centralized in the domain layer (context)
-- Storage adapter using `localStorage`
-  - Ready to be replaced by a REST API in the future
-- `useMemo` used for derived state (dashboard and filters)
-- **CSS Modules** for scoped styles
-- **Mobile-first** approach
+- Storage abstraction using `localStorage`
+  - Designed to be replaced by a backend service
+- Derived state handled with `useMemo`
+- **CSS Modules** for scoped and maintainable styles
+- **Mobile-first** design approach
 
 ---
 
@@ -52,9 +65,23 @@ This project was designed as a **real product**, prioritizing mobile experience,
 - React Router
 - Context API
 - CSS Modules
+- Axios
+- Keycloak (OIDC)
 - Google Books API
 
 ---
+
+## ⚙️ Environment Variables
+
+Create a `.env` file based on `.env.example`.
+
+```env
+VITE_KEYCLOAK_URL=https://auth.yourdomain.com
+VITE_KEYCLOAK_REALM=clube-do-livro
+VITE_KEYCLOAK_CLIENT_ID=clube-do-livro-web
+
+VITE_API_BASE_URL=https://api.yourdomain.com
+
 
 ## 🚀 Running the project
 

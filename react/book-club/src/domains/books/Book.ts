@@ -1,11 +1,15 @@
 export type BookStatus = 'SUGERIDO' | 'LENDO' | 'LIDO';
 
-export interface Book {
+export type BookProgress = {
+  memberEmail: string;
+  finished: boolean;
+};
+
+export type Book = {
   id: string;
   title: string;
   author: string;
-  thumbnail?: string;
+  suggestedBy: string;
   status: BookStatus;
-}
-
-export type BookFilter = 'ALL' | BookStatus;
+  progress?: BookProgress[];
+};

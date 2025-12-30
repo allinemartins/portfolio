@@ -1,4 +1,4 @@
-export interface Member {
-  id: string;
+export type Member = {
+  email: string;   // ID
   name: string;
-}
+};
