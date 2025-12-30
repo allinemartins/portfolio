@@ -47,8 +47,7 @@ export function BookProvider({ children }: { children: React.ReactNode }) {
     });
   }
 
-  // 🆕 PASSO 2
-  function markAsReadByMember(bookId: string) {
+    function markAsReadByMember(bookId: string) {
     if (!currentMember) return;
 
     setBooks(prev =>
