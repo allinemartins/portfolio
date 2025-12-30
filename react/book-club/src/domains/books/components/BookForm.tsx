@@ -68,7 +68,7 @@ export function BookForm() {
       <input value={title} placeholder="Título" readOnly />
       <input value={author} placeholder="Autor" readOnly />
 
-      
+      {/* STATUS AQUI 👇 */}
       <select
         value={status}
         onChange={e => setStatus(e.target.value as BookStatus)}
