@@ -1,0 +1,19 @@
+databaseChangeLog:
+  - changeSet:
+      id: create-club
+      author: alline
+      changes:
+        - createTable:
+            tableName: club
+            columns:
+              - column:
+                  name: id
+                  type: uuid
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: name
+                  type: varchar(150)
+                  constraints:
+                    nullable: false
+                    

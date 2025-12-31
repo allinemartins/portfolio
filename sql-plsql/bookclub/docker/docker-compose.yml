@@ -1,0 +1,38 @@
+version: "3.8"
+
+networks:
+  bookclub-net:
+    driver: bridge
+
+volumes:
+  bookclub_pgdata:
+
+services:
+  postgres:
+    image: postgres:17
+    container_name: bookclub-postgres
+    restart: unless-stopped
+    env_file:
+      - .env
+    volumes:
+      - bookclub_pgdata:/var/lib/postgresql/data
+    networks:
+      - bookclub-net
+
+  liquibase:
+    image: liquibase/liquibase:4.27
+    container_name: bookclub-liquibase
+    depends_on:
+      - postgres
+    volumes:
+      - ../db/changelog:/liquibase/changelog
+    command:
+      - --url=jdbc:postgresql://postgres:5432/bookclub
+      - --username=bookclub
+      - --password=bookclub123
+      - --searchPath=/liquibase/changelog
+      - --changeLogFile=db.changelog-master.yaml
+      - update
+    networks:
+      - bookclub-net
+      

@@ -1,0 +1,12 @@
+databaseChangeLog:
+  - include:
+      file: 001-create-club.yaml
+  - include:
+      file: 002-create-member.yaml
+  - include:
+      file: 003-create-book.yaml
+  - include:
+      file: 004-create-book-reading.yaml
+  - include:
+      file: 005-create-book-rating.yaml
+      

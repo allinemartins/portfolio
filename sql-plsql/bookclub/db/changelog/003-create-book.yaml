@@ -1,0 +1,39 @@
+databaseChangeLog:
+  - changeSet:
+      id: create-book
+      author: alline
+      changes:
+        - createTable:
+            tableName: book
+            columns:
+              - column:
+                  name: id
+                  type: uuid
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: club_id
+                  type: uuid
+                  constraints:
+                    nullable: false
+              - column:
+                  name: title
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: author
+                  type: varchar(255)
+              - column:
+                  name: status
+                  type: varchar(20)
+                  constraints:
+                    nullable: false
+
+        - addForeignKeyConstraint:
+            constraintName: fk_book_club
+            baseTableName: book
+            baseColumnNames: club_id
+            referencedTableName: club
+            referencedColumnNames: id
+            

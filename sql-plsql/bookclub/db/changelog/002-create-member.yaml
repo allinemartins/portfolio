@@ -1,0 +1,31 @@
+databaseChangeLog:
+  - changeSet:
+      id: create-member
+      author: alline
+      changes:
+        - createTable:
+            tableName: member
+            columns:
+              - column:
+                  name: id
+                  type: uuid
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: club_id
+                  type: uuid
+                  constraints:
+                    nullable: false
+              - column:
+                  name: name
+                  type: varchar(150)
+                  constraints:
+                    nullable: false
+
+        - addForeignKeyConstraint:
+            constraintName: fk_member_club
+            baseTableName: member
+            baseColumnNames: club_id
+            referencedTableName: club
+            referencedColumnNames: id
+            
