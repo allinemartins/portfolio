@@ -16,6 +16,8 @@ services:
       - .env
     volumes:
       - bookclub_pgdata:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
     networks:
       - bookclub-net
 
