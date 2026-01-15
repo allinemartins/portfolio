@@ -27,14 +27,13 @@ services:
     depends_on:
       - postgres
     volumes:
-      - ../db/changelog:/liquibase/changelog
+      - ../db:/liquibase/db
     command:
       - --url=jdbc:postgresql://postgres:5432/bookclub
       - --username=bookclub
       - --password=bookclub123
-      - --searchPath=/liquibase/changelog
+      - --searchPath=/liquibase/db
       - --changeLogFile=db.changelog-master.yaml
       - update
     networks:
-      - bookclub-net
-      
+      - bookclub-net      
