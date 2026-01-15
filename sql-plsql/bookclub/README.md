@@ -34,13 +34,8 @@ bookclub/
 │ └── .env
 │
 ├── db/
-│ └── changelog/
-│ ├── db.changelog-master.yaml
-│ ├── 001-create-club.yaml
-│ ├── 002-create-member.yaml
-│ ├── 003-create-book.yaml
-│ ├── 004-create-book-reading.yaml
-│ └── 005-create-book-rating.yaml
+| ├── db.changelog-master.yaml 
+│ └── changelog/*.yaml
 │
 └── README.md
 

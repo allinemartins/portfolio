@@ -1,0 +1,35 @@
+databaseChangeLog:
+  - changeSet:
+      id: evolve-member-add-email-and-keycloak-user
+      author: alline
+      changes:
+        - addColumn:
+            tableName: member
+            columns:
+              - column:
+                  name: email
+                  type: varchar(150)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: keycloak_user_id
+                  type: varchar(36)
+                  constraints:
+                    nullable: false
+
+        - addUniqueConstraint:
+            tableName: member
+            columnNames: keycloak_user_id
+            constraintName: uq_member_keycloak_user_id
+
+        - addUniqueConstraint:
+            tableName: member
+            columnNames: club_id, email
+            constraintName: uq_member_club_email
+
+        - createIndex:
+            tableName: member
+            indexName: ix_member_club_id
+            columns:
+              - column:
+                  name: club_id

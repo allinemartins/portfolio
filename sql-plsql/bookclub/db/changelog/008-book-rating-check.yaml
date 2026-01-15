@@ -1,0 +1,13 @@
+databaseChangeLog:
+  - changeSet:
+      id: evolve-book-rating-check-1-to-5
+      author: alline
+      changes:
+        - sql:
+            dbms: postgresql
+            splitStatements: false
+            stripComments: true
+            sql: >
+              ALTER TABLE book_rating
+              ADD CONSTRAINT ck_book_rating_range
+              CHECK (rating >= 1 AND rating <= 5);
