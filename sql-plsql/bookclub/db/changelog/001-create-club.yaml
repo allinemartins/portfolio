@@ -1,6 +1,6 @@
 databaseChangeLog:
   - changeSet:
-      id: create-club
+      id: 001-create-club
       author: alline
       changes:
         - createTable:
@@ -11,9 +11,14 @@ databaseChangeLog:
                   type: uuid
                   constraints:
                     primaryKey: true
+                    nullable: false
               - column:
                   name: name
                   type: varchar(150)
                   constraints:
                     nullable: false
-                    
+
+        - addUniqueConstraint:
+            tableName: club
+            columnNames: name
+            constraintName: uk_club_name

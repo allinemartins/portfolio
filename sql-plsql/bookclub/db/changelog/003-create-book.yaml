@@ -1,6 +1,6 @@
 databaseChangeLog:
   - changeSet:
-      id: create-book
+      id: 003-create-book
       author: alline
       changes:
         - createTable:
@@ -11,22 +11,39 @@ databaseChangeLog:
                   type: uuid
                   constraints:
                     primaryKey: true
+                    nullable: false
+
               - column:
                   name: club_id
                   type: uuid
                   constraints:
                     nullable: false
+
               - column:
                   name: title
-                  type: varchar(255)
+                  type: varchar(200)
                   constraints:
                     nullable: false
+
               - column:
                   name: author
-                  type: varchar(255)
+                  type: varchar(150)
+                  constraints:
+                    nullable: false
+
+              - column:
+                  name: image_url
+                  type: varchar(500)
+
               - column:
                   name: status
                   type: varchar(20)
+                  constraints:
+                    nullable: false
+
+              - column:
+                  name: created_at
+                  type: timestamp
                   constraints:
                     nullable: false
 
@@ -36,4 +53,17 @@ databaseChangeLog:
             baseColumnNames: club_id
             referencedTableName: club
             referencedColumnNames: id
-            
+            onDelete: CASCADE
+
+        - createIndex:
+            tableName: book
+            indexName: idx_book_club
+            columns:
+              - column:
+                  name: club_id
+
+        - sql:
+            sql: |
+              ALTER TABLE book
+              ADD CONSTRAINT ck_book_status
+              CHECK (status IN ('SUGGESTED','READING','READ'));
