@@ -1,0 +1,38 @@
+databaseChangeLog:
+  - changeSet:
+      id: 005-book-progress-add-rating
+      author: alline
+      changes:
+        - addColumn:
+            tableName: book_progress
+            columns:
+              - column:
+                  name: rating
+                  type: int
+                  remarks: "Member rating for the book (1..5). Nullable until rated."
+              - column:
+                  name: rated_at
+                  type: timestamp
+                  remarks: "When the member rated the book."
+        
+        - sql:
+            dbms: postgresql
+            splitStatements: false
+            stripComments: true
+            sql: >
+              ALTER TABLE book_progress
+              ADD CONSTRAINT ck_book_progress_rating
+              CHECK (rating IS NULL OR (rating BETWEEN 1 AND 5));
+      rollback:
+        - sql:
+            dbms: postgresql
+            splitStatements: false
+            stripComments: true
+            sql: >
+              ALTER TABLE book_progress DROP CONSTRAINT IF EXISTS ck_book_progress_rating;
+        - dropColumn:
+            tableName: book_progress
+            columnName: rated_at
+        - dropColumn:
+            tableName: book_progress
+            columnName: rating

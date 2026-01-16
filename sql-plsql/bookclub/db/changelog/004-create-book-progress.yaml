@@ -1,0 +1,57 @@
+databaseChangeLog:
+  - changeSet:
+      id: 004-create-book-progress
+      author: alline
+      changes:
+        - createTable:
+            tableName: book_progress
+            columns:
+              - column:
+                  name: id
+                  type: uuid
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+
+              - column:
+                  name: book_id
+                  type: uuid
+                  constraints:
+                    nullable: false
+
+              - column:
+                  name: member_id
+                  type: uuid
+                  constraints:
+                    nullable: false
+
+              - column:
+                  name: finished
+                  type: boolean
+                  constraints:
+                    nullable: false
+
+              - column:
+                  name: finished_at
+                  type: timestamp
+
+        - addForeignKeyConstraint:
+            constraintName: fk_progress_book
+            baseTableName: book_progress
+            baseColumnNames: book_id
+            referencedTableName: book
+            referencedColumnNames: id
+            onDelete: CASCADE
+
+        - addForeignKeyConstraint:
+            constraintName: fk_progress_member
+            baseTableName: book_progress
+            baseColumnNames: member_id
+            referencedTableName: member
+            referencedColumnNames: id
+            onDelete: CASCADE
+
+        - addUniqueConstraint:
+            tableName: book_progress
+            columnNames: book_id, member_id
+            constraintName: uk_book_progress_member

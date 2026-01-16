@@ -1,6 +1,6 @@
 databaseChangeLog:
   - changeSet:
-      id: create-member
+      id: 002-create-member
       author: alline
       changes:
         - createTable:
@@ -11,14 +11,35 @@ databaseChangeLog:
                   type: uuid
                   constraints:
                     primaryKey: true
+                    nullable: false
+
               - column:
                   name: club_id
                   type: uuid
                   constraints:
                     nullable: false
+              
               - column:
-                  name: name
+                  name: user_id
+                  type: varchar(80)
+                  constraints:
+                    nullable: false
+              
+              - column:
+                  name: display_name
                   type: varchar(150)
+                  constraints:
+                    nullable: false
+              
+              - column:
+                  name: role
+                  type: varchar(20)
+                  constraints:
+                    nullable: false
+
+              - column:
+                  name: created_at
+                  type: timestamp
                   constraints:
                     nullable: false
 
@@ -28,4 +49,26 @@ databaseChangeLog:
             baseColumnNames: club_id
             referencedTableName: club
             referencedColumnNames: id
-            
+            onDelete: CASCADE
+        
+        - addUniqueConstraint:
+            tableName: member
+            columnNames: club_id, user_id
+            constraintName: uk_member_club_user
+        
+        - createIndex:
+            tableName: member
+            indexName: idx_member_club
+            columns:
+              - column:
+                  name: club_id
+        
+        - createIndex:
+            tableName: member
+            indexName: idx_member_user
+            columns:
+              - column:
+                  name: user_id
+        
+        - sql:
+            sql: "ALTER TABLE member ADD CONSTRAINT ck_member_role CHECK (role in ('ADMIN','MEMBER'));"
