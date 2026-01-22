@@ -16,6 +16,7 @@ This project was designed as a **real-world product**, prioritizing mobile usabi
 
 ---
 
+
 ### 📊 Dashboard
 - Book club overview
 - Current book in progress  
