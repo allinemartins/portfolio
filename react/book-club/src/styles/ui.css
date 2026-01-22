@@ -1,0 +1,65 @@
+/* ===== Cards ===== */
+.ui-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+}
+
+/* ===== Buttons ===== */
+.ui-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-xs);
+
+  background: var(--brand);
+  color: #fff;
+
+  border: 0;
+  border-radius: var(--radius-sm);
+  padding: 12px 16px;
+
+  font-weight: 650;
+  font-size: var(--text-base);
+  cursor: pointer;
+
+  box-shadow: var(--shadow-brand);
+  transition: transform 0.05s ease, filter 0.15s ease;
+}
+
+.ui-button:hover {
+  filter: brightness(1.03);
+}
+
+.ui-button:active {
+  transform: translateY(1px);
+}
+
+.ui-button:focus-visible {
+  outline: 3px solid var(--focus);
+  outline-offset: 3px;
+}
+
+.ui-button--ghost {
+  background: transparent;
+  color: var(--brand);
+  box-shadow: none;
+}
+
+.ui-button--secondary {
+  background: var(--brand-2);
+  box-shadow: 0 10px 22px rgba(52, 211, 153, 0.22);
+}
+
+/* ===== Badges ===== */
+.ui-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 8px;
+  font-size: var(--text-sm);
+  font-weight: 600;
+  border-radius: var(--radius-xs);
+  background: color-mix(in srgb, var(--brand) 12%, transparent);
+  color: var(--brand);
+}

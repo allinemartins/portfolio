@@ -1,0 +1,28 @@
+/* user bar só mobile */
+.headerUserBar {
+  display: none;
+  align-items: center;
+  gap: 10px;
+}
+
+.headerLogoutBtn {
+  border: 1px solid var(--border);
+  background: var(--surface);
+  height: 34px;
+  padding: 0 10px;
+  border-radius: 999px;
+  font-weight: 800;
+  color: var(--brand);
+  cursor: pointer;
+}
+
+.headerLogoutBtn:hover {
+  background: color-mix(in srgb, var(--brand) 8%, transparent);
+}
+
+
+@media (max-width: 860px) {
+  .headerUserBar {
+    display: inline-flex;
+  }
+}
