@@ -18,7 +18,7 @@ This portfolio is under active construction and will evolve continuously as I bu
 ```
 portfolio/
     ├── java/         # Java and Spring Boot projects
-    ├── react/        # React projects and frontend applications
+    ├── react/        # React projects and frontend applications 
     ├── javascript/   # Utility libraries and JS mini-projects
     ├── php/          # PHP applications and backend examples
     ├── sql-plsql/    # SQL queries, PL/SQL procedures, triggers and database scripts
