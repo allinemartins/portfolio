@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.UUID;
 
 import om.allinemartins.bookclub.bookclub_api.application.ClubService;
+import om.allinemartins.bookclub.bookclub_api.config.security.SecurityHelper;
 import om.allinemartins.bookclub.bookclub_api.controller.dto.ClubRequest;
 import om.allinemartins.bookclub.bookclub_api.controller.dto.ClubResponse;
 
@@ -29,11 +30,10 @@ public class ClubController {
     @PostMapping
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<ClubResponse> create(
-            @Valid @RequestBody ClubRequest request,
-            @AuthenticationPrincipal Jwt jwt
+            @Valid @RequestBody ClubRequest request
     ) {
-        String creatorUserId = jwt.getSubject();
-        String creatorDisplayName = jwt.getClaimAsString("name"); // geralmente vem do Keycloak
+        String creatorUserId = SecurityHelper.currentUserId();
+        String creatorDisplayName = SecurityHelper.currentUserName();
         ClubResponse created = service.create(request, creatorUserId, creatorDisplayName);
         return ResponseEntity.status(HttpStatus.CREATED).body(created);
     }

@@ -5,11 +5,10 @@ import java.util.Optional;
 import java.util.UUID;
 
 import om.allinemartins.bookclub.bookclub_api.controller.dto.BookCreateRequest;
+import om.allinemartins.bookclub.bookclub_api.controller.dto.BookProgressSummaryResponse;
 import om.allinemartins.bookclub.bookclub_api.controller.dto.BookResponse;
 import om.allinemartins.bookclub.bookclub_api.domain.*;
 import om.allinemartins.bookclub.bookclub_api.repository.*;
-
-import org.springframework.security.access.AccessDeniedException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -20,24 +19,26 @@ public class BookService {
     private final MemberRepository memberRepository;
     private final BookRepository bookRepository;
     private final BookProgressRepository progressRepository;
-
+    private final HelperService helperService;
     private static final String RESOURCE_NOT_FOUND = "Book not found: ";
 
     public BookService(
             ClubRepository clubRepository,
             MemberRepository memberRepository,
             BookRepository bookRepository,
-            BookProgressRepository progressRepository
+            BookProgressRepository progressRepository,
+            HelperService helperService
     ) {
         this.clubRepository = clubRepository;
         this.memberRepository = memberRepository;
         this.bookRepository = bookRepository;
         this.progressRepository = progressRepository;
+        this.helperService = helperService;
     }
 
     @Transactional
     public BookResponse createSuggested(UUID clubId, BookCreateRequest request, String requesterUserId) {
-        requireClubMember(clubId, requesterUserId);
+        helperService.requireClubMember(clubId, requesterUserId);
 
         Club club = clubRepository.findById(clubId)
                 .orElseThrow(() -> new ResourceNotFoundException("Club not found: " + clubId));
@@ -55,7 +56,7 @@ public class BookService {
 
     @Transactional(readOnly = true)
     public List<BookResponse> list(UUID clubId, String requesterUserId) {
-        requireClubMember(clubId, requesterUserId);
+        helperService.requireClubMember(clubId, requesterUserId);
 
         return bookRepository.findByClub_Id(clubId).stream()
                 .map(this::toResponse)
@@ -64,7 +65,7 @@ public class BookService {
 
     @Transactional
     public BookResponse startReading(UUID clubId, UUID bookId, String requesterUserId) {
-        requireClubMember(clubId, requesterUserId);
+        helperService.requireClubMember(clubId, requesterUserId);
 
         Book book = bookRepository.findByIdAndClub_Id(bookId, clubId)
                 .orElseThrow(() -> new ResourceNotFoundException(RESOURCE_NOT_FOUND + bookId));
@@ -83,7 +84,7 @@ public class BookService {
 
     @Transactional
     public BookResponse finishBook(UUID clubId, UUID bookId, String requesterUserId) {
-        Member member = requireClubMemberAndGet(clubId, requesterUserId);
+        Member member = helperService.requireClubMemberAndGet(clubId, requesterUserId);
 
         Book book = bookRepository.findByIdAndClub_Id(bookId, clubId)
                 .orElseThrow(() -> new ResourceNotFoundException(RESOURCE_NOT_FOUND + bookId));
@@ -111,7 +112,7 @@ public class BookService {
 
     @Transactional
     public void deleteSuggested(UUID clubId, UUID bookId, String requesterUserId) {
-        requireClubMember(clubId, requesterUserId);
+        helperService.requireClubMember(clubId, requesterUserId);
 
         Book book = bookRepository.findByIdAndClub_Id(bookId, clubId)
                 .orElseThrow(() -> new ResourceNotFoundException(RESOURCE_NOT_FOUND + bookId));
@@ -125,7 +126,7 @@ public class BookService {
 
     @Transactional(readOnly = true)
     public Optional<BookResponse> getCurrentReadingBook(UUID clubId, String requesterUserId) {
-        requireClubMember(clubId, requesterUserId);
+        helperService.requireClubMember(clubId, requesterUserId);
 
         return bookRepository.findByClub_IdAndStatus(clubId, BookStatus.READING)
                 .map(this::toResponse);
@@ -133,7 +134,7 @@ public class BookService {
 
     @Transactional
     public BookResponse rateBook(UUID clubId, UUID bookId, int rating, String requesterUserId) {
-        Member member = requireClubMemberAndGet(clubId, requesterUserId);
+        Member member = helperService.requireClubMemberAndGet(clubId, requesterUserId);
 
         Book book = bookRepository.findByIdAndClub_Id(bookId, clubId)
                 .orElseThrow(() -> new ResourceNotFoundException(RESOURCE_NOT_FOUND + bookId));
@@ -152,14 +153,25 @@ public class BookService {
         return toResponse(book);
     }
 
-    private void requireClubMember(UUID clubId, String userId) {
-        boolean isMember = memberRepository.existsByClub_IdAndUserId(clubId, userId);
-        if (!isMember) throw new AccessDeniedException("You are not a member of this club");
-    }
+    @Transactional(readOnly = true)
+    public BookProgressSummaryResponse getMyProgressSummary(UUID clubId, UUID bookId, String userId) {
 
-    private Member requireClubMemberAndGet(UUID clubId, String userId) {
-        return memberRepository.findByClub_IdAndUserId(clubId, userId)
-                .orElseThrow(() -> new AccessDeniedException("You are not a member of this club"));
+        Book book = bookRepository.findByIdAndClub_Id(bookId, clubId)
+                .orElseThrow(() -> new IllegalArgumentException("Book not found in this club"));
+
+        Member member = memberRepository.findByClub_IdAndUserId(clubId, userId)
+                .orElseThrow(() -> new IllegalArgumentException("User is not a member of this club"));
+
+        BookProgress bp = progressRepository.findByBook_IdAndMember_Id(book.getId(), member.getId())
+                .orElse(null);
+
+        boolean hasFinished = bp != null && bp.isFinished();
+        boolean hasRated = bp != null && bp.getRating() != null;
+
+        long finishedCount = progressRepository.countByBook_IdAndFinishedTrue(book.getId());
+        long totalMembers = memberRepository.countByClub_Id(clubId);
+
+        return new BookProgressSummaryResponse(hasRated, hasFinished, finishedCount, totalMembers);
     }
 
     private BookResponse toResponse(Book b) {

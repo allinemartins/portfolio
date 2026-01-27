@@ -21,4 +21,7 @@ public interface MemberRepository extends JpaRepository<Member, UUID> {
     Optional<Member> findByIdAndClub_Id(UUID memberId, UUID clubId);
 
     List<Member> findByUserId(String userId);
+
+    long countByClub_Id(UUID clubId);
+
 }

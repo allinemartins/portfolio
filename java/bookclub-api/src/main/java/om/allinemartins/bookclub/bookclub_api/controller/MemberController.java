@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.UUID;
 
 import om.allinemartins.bookclub.bookclub_api.application.MemberService;
+import om.allinemartins.bookclub.bookclub_api.config.security.SecurityHelper;
 import om.allinemartins.bookclub.bookclub_api.controller.dto.MemberCreateRequest;
 import om.allinemartins.bookclub.bookclub_api.controller.dto.MemberResponse;
 import om.allinemartins.bookclub.bookclub_api.controller.dto.MyMembershipResponse;
@@ -29,36 +30,33 @@ public class MemberController {
     @PreAuthorize("isAuthenticated()")
     public ResponseEntity<MemberResponse> addMember(
             @PathVariable UUID clubId,
-            @Valid @RequestBody MemberCreateRequest request,
-            @AuthenticationPrincipal Jwt jwt
+            @Valid @RequestBody MemberCreateRequest request
     ) {
-        MemberResponse created = service.addMember(clubId, request, jwt.getSubject());
+        MemberResponse created = service.addMember(clubId, request, SecurityHelper.currentUserId());
         return ResponseEntity.status(HttpStatus.CREATED).body(created);
     }
 
     @GetMapping("/api/clubs/{clubId}/members")
     @PreAuthorize("isAuthenticated()")
     public ResponseEntity<List<MemberResponse>> listMembers(
-            @PathVariable UUID clubId,
-            @AuthenticationPrincipal Jwt jwt
+            @PathVariable UUID clubId
     ) {
-        return ResponseEntity.ok(service.listMembers(clubId, jwt.getSubject()));
+        return ResponseEntity.ok(service.listMembers(clubId, SecurityHelper.currentUserId()));
     }
 
     @DeleteMapping("/api/clubs/{clubId}/members/{memberId}")
     @PreAuthorize("isAuthenticated()")
     public ResponseEntity<Void> removeMember(
             @PathVariable UUID clubId,
-            @PathVariable UUID memberId,
-            @AuthenticationPrincipal Jwt jwt
+            @PathVariable UUID memberId
     ) {
-        service.removeMember(clubId, memberId, jwt.getSubject());
+        service.removeMember(clubId, memberId, SecurityHelper.currentUserId());
         return ResponseEntity.noContent().build();
     }
 
     @GetMapping("/api/me/memberships")
     @PreAuthorize("isAuthenticated()")
-    public ResponseEntity<List<MyMembershipResponse>> myMemberships(@AuthenticationPrincipal Jwt jwt) {
-        return ResponseEntity.ok(service.myMemberships(jwt.getSubject()));
+    public ResponseEntity<List<MyMembershipResponse>> myMemberships() {
+        return ResponseEntity.ok(service.myMemberships(SecurityHelper.currentUserId()));
     }
 }

@@ -2,7 +2,6 @@ package om.allinemartins.bookclub.bookclub_api.application;
 
 import java.util.List;
 import java.util.UUID;
-
 import om.allinemartins.bookclub.bookclub_api.controller.dto.ClubRequest;
 import om.allinemartins.bookclub.bookclub_api.controller.dto.ClubResponse;
 import om.allinemartins.bookclub.bookclub_api.domain.Club;
@@ -10,7 +9,6 @@ import om.allinemartins.bookclub.bookclub_api.domain.Member;
 import om.allinemartins.bookclub.bookclub_api.domain.MemberRole;
 import om.allinemartins.bookclub.bookclub_api.repository.ClubRepository;
 import om.allinemartins.bookclub.bookclub_api.repository.MemberRepository;
-
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
