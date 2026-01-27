@@ -11,8 +11,6 @@ import om.allinemartins.bookclub.bookclub_api.domain.Member;
 import om.allinemartins.bookclub.bookclub_api.domain.MemberRole;
 import om.allinemartins.bookclub.bookclub_api.repository.ClubRepository;
 import om.allinemartins.bookclub.bookclub_api.repository.MemberRepository;
-
-import org.springframework.security.access.AccessDeniedException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -21,15 +19,17 @@ public class MemberService {
 
     private final MemberRepository memberRepository;
     private final ClubRepository clubRepository;
+    private final HelperService helperService;
 
-    public MemberService(MemberRepository memberRepository, ClubRepository clubRepository) {
+    public MemberService(MemberRepository memberRepository, ClubRepository clubRepository, HelperService helperService) {
         this.memberRepository = memberRepository;
         this.clubRepository = clubRepository;
+        this.helperService = helperService;
     }
 
     @Transactional
     public MemberResponse addMember(UUID clubId, MemberCreateRequest request, String requesterUserId) {
-        requireClubAdmin(clubId, requesterUserId);
+        helperService.requireClubAdmin(clubId, requesterUserId);
 
         Club club = clubRepository.findById(clubId)
                 .orElseThrow(() -> new ResourceNotFoundException("Club not found: " + clubId));
@@ -51,7 +51,7 @@ public class MemberService {
 
     @Transactional(readOnly = true)
     public List<MemberResponse> listMembers(UUID clubId, String requesterUserId) {
-        requireClubMember(clubId, requesterUserId);
+        helperService.requireClubMember(clubId, requesterUserId);
 
         return memberRepository.findByClub_Id(clubId).stream()
                 .map(this::toResponse)
@@ -60,7 +60,7 @@ public class MemberService {
 
     @Transactional
     public void removeMember(UUID clubId, UUID memberId, String requesterUserId) {
-        requireClubAdmin(clubId, requesterUserId);
+        helperService.requireClubAdmin(clubId, requesterUserId);
 
         Member member = memberRepository.findByIdAndClub_Id(memberId, clubId)
                 .orElseThrow(() -> new ResourceNotFoundException("Member not found: " + memberId));
@@ -77,18 +77,6 @@ public class MemberService {
                         m.getRole()
                 ))
                 .toList();
-    }
-
-    private void requireClubMember(UUID clubId, String userId) {
-        if (!memberRepository.existsByClub_IdAndUserId(clubId, userId)) {
-            throw new AccessDeniedException("You are not a member of this club");
-        }
-    }
-
-    private void requireClubAdmin(UUID clubId, String userId) {
-        if (!memberRepository.existsByClub_IdAndUserIdAndRole(clubId, userId, MemberRole.ADMIN)) {
-            throw new AccessDeniedException("You are not an admin of this club");
-        }
     }
 
     private MemberResponse toResponse(Member m) {
