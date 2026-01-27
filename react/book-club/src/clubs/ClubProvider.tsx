@@ -1,6 +1,5 @@
 import React, { createContext, useContext, useEffect, useMemo, useState } from "react";
 import { getMyMemberships, type Membership } from "../api/memberships";
-import { useAuth } from "../auth/AuthProvider";
 
 type ClubContextValue = {
   memberships: Membership[];
