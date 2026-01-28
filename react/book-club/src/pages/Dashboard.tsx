@@ -25,8 +25,8 @@ export function Dashboard() {
         
         const [list, curr] = await Promise.all([
           listBooks(clubId),
-          getCurrentReadingBook(clubId).catch((err: any) => {            
-            return undefined as any;
+          getCurrentReadingBook(clubId).catch((_err: any) => {
+            return undefined;
           }),
         ]);
 

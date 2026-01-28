@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useClub } from "../clubs/ClubProvider";
-import { addMember, listMembers, removeMember, type MemberResponse, type MemberRole } from "../api/members";
+import { addMember, listMembers, removeMember, type MemberResponse} from "../api/members";
 
 export function Members() {
   const { selectedClub, isLoading: isLoadingClub } = useClub();

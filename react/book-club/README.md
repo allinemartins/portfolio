@@ -79,8 +79,6 @@ Create a `.env` file based on `.env.example`.
 ```env
 VITE_KEYCLOAK_URL=https://auth.yourdomain.com
 VITE_KEYCLOAK_REALM=clube-do-livro
-VITE_KEYCLOAK_CLIENT_ID=clube-do-livro-web
-
 VITE_API_BASE_URL=https://api.yourdomain.com
 
 

@@ -67,7 +67,8 @@ The goals of this portfolio are:
 ### **SQL / PL/SQL**
 - Packages and procedures  
 - Query optimization examples  
-- Audit triggers  
+- Audit triggers
+- 
 
 ---
 
