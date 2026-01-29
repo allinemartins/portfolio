@@ -20,7 +20,7 @@ This project was designed as a **real-world product**, prioritizing mobile usabi
 ### 📊 Dashboard
 - Book club overview
 - Current book in progress  
-  > ⚠️ Only **one book can be in "Reading" status** at a time
+  > ⚠️ Only **one book can be in "Reading" status** at a time 
 - Quick metrics:
   - Total books
   - Books read
