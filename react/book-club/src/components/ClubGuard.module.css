@@ -1,0 +1,5 @@
+.muted {
+  color: var(--muted);
+  font-size: var(--text-sm);
+  padding: var(--space-md);
+}
