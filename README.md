@@ -24,7 +24,7 @@ portfolio/
     ├── sql-plsql/    # SQL queries, PL/SQL procedures, triggers and database scripts
     └── docs/         # Documentation, architecture notes, diagrams and studies
 ```
-Each subfolder contains its own README with project descriptions, setup instructions and architecture details.
+Each subfolder contains its own README with project descriptions, setup instructions and architecture details. 
 
 ---
 
