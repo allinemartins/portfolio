@@ -1,0 +1,20 @@
+.card {
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--surface);
+  padding: var(--space-md);
+  box-shadow: var(--shadow-sm);
+}
+
+.top {
+  display: grid;
+  grid-template-columns: 88px 1fr;
+  gap: var(--space-md);
+  align-items: start;
+}
+
+@media (max-width: 520px) {
+  .top {
+    grid-template-columns: 72px 1fr;
+  }
+}

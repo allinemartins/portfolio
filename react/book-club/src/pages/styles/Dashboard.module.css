@@ -1,0 +1,9 @@
+.page {
+  display: grid;
+  gap: var(--space-md);
+}
+
+.state {
+  padding: 12px;
+  color: var(--muted);
+}

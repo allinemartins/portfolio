@@ -20,6 +20,15 @@ export type BookCreateRequest = {
   imageUrl?: string | null;
 };
 
+export type BookProgressSummaryResponse = {
+  hasRated: boolean;
+  hasFinished: boolean;
+  finishedCount: number;
+  totalMembers: number;
+};
+
+export type BusyAction = "finish" | "rate" | null;
+
 export function listBooks(clubId: string) {
   return apiFetch<BookResponse[]>(`/api/clubs/${clubId}/books`);
 }
@@ -62,4 +71,10 @@ export function rateBook(clubId: string, bookId: string, rating: number) {
 
 export async function getCurrentReadingBook(clubId: string) {  
   return apiFetch<BookResponse | undefined>(`/api/clubs/${clubId}/books/current`);
+}
+
+export function getBookProgressSummary(clubId: string, bookId: string) {
+  return apiFetch<BookProgressSummaryResponse>(
+    `/api/clubs/${clubId}/books/${bookId}/progress-summary`
+  );
 }

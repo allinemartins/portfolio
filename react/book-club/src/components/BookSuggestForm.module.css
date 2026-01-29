@@ -1,0 +1,86 @@
+.card {
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--surface);
+  padding: var(--space-md);
+  display: grid;
+  gap: var(--space-md);
+}
+
+.h3 {
+  margin: 0;
+}
+
+.label {
+  display: block;
+  font-size: 12px;
+  color: var(--muted);
+  margin-bottom: 6px;
+}
+
+.input {
+  width: 100%;
+  padding: 10px;
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  background: var(--bg);
+}
+
+.muted {
+  margin-top: 8px;
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.searchBox {
+  display: grid;
+  gap: 8px;
+}
+
+.suggestions {
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  background: var(--bg);
+}
+
+.suggestionBtn {
+  width: 100%;
+  text-align: left;
+  padding: 10px;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+}
+
+.suggestionBtn + .suggestionBtn {
+  border-top: 1px solid var(--border);
+}
+
+.sTitle {
+  font-weight: 800;
+}
+
+.sAuthor {
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.form {
+  display: grid;
+  gap: 10px;
+}
+
+.submit {
+  width: 220px;
+  padding: 10px 12px;
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  background: var(--bg);
+  cursor: pointer;
+}
+
+.submit:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}

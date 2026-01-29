@@ -1,0 +1,187 @@
+.page {
+  display: grid;
+  gap: var(--space-lg);
+}
+
+.header {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: var(--space-md);
+  align-items: start;
+}
+
+.title {
+  margin: 0;
+  font-size: var(--text-xl);
+  letter-spacing: -0.02em;
+}
+
+.subtitle {
+  margin: 6px 0 0;
+  color: var(--muted);
+  font-size: var(--text-sm);
+  line-height: 1.4;
+}
+
+.actions {
+  display: flex;
+  gap: var(--space-sm);
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.rollButton,
+.secondaryButton,
+.startButton {
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  font: inherit;
+  padding: 10px 12px;
+  cursor: pointer;
+  transition: transform 120ms ease, box-shadow 120ms ease, background 120ms ease,
+    border-color 120ms ease, opacity 120ms ease;
+  user-select: none;
+}
+
+.rollButton {
+  background: var(--brand);
+  color: white;
+  border-color: transparent;
+  box-shadow: var(--shadow-sm);
+}
+
+.rollButton:hover:not(:disabled) {
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-md);
+}
+
+.secondaryButton {
+  background: var(--surface);
+  color: var(--text);
+}
+
+.secondaryButton:hover:not(:disabled) {
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-sm);
+}
+
+.rollButton:disabled,
+.secondaryButton:disabled,
+.startButton:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.alertError,
+.alertInfo {
+  border: 1px solid var(--border);
+  background: var(--surface);
+  border-radius: var(--radius);
+  padding: var(--space-md);
+  box-shadow: var(--shadow-sm);
+  font-size: var(--text-sm);
+}
+
+.alertError {
+  border-color: rgba(239, 68, 68, 0.35);
+  background:
+    radial-gradient(900px 240px at 20% 0%, rgba(239, 68, 68, 0.10), transparent 55%),
+    var(--surface);
+}
+
+.alertInfo {
+  border-color: rgba(99, 102, 241, 0.28);
+  background:
+    radial-gradient(900px 240px at 20% 0%, rgba(99, 102, 241, 0.10), transparent 55%),
+    var(--surface);
+}
+
+.alertStrong {
+  margin-left: 6px;
+  color: var(--text);
+}
+
+/* ✅ classes extras aplicadas no BookCard via className */
+.cardHighlight {
+  border-color: rgba(99, 102, 241, 0.55);
+  box-shadow: var(--shadow-md);
+  position: relative;
+  overflow: hidden;
+}
+
+.cardHighlight::before {
+  content: "";
+  position: absolute;
+  inset: -2px;
+  background:
+    radial-gradient(220px 140px at 20% 0%, rgba(99, 102, 241, 0.22), transparent 60%),
+    radial-gradient(220px 140px at 90% 70%, rgba(57, 217, 138, 0.16), transparent 60%);
+  opacity: 0.9;
+  pointer-events: none;
+  filter: blur(14px);
+}
+
+.cardWinner {
+  border-color: rgba(57, 217, 138, 0.55);
+  transform: translateY(-2px);
+  position: relative;
+  overflow: hidden;
+}
+
+.cardWinner::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    90deg,
+    rgba(57, 217, 138, 0.0),
+    rgba(57, 217, 138, 0.10),
+    rgba(57, 217, 138, 0.0)
+  );
+  transform: translateX(-120%);
+  animation: shine 900ms ease-out forwards;
+  pointer-events: none;
+}
+
+@keyframes shine {
+  to {
+    transform: translateX(120%);
+  }
+}
+
+.winnerBar {
+  display: flex;
+  gap: var(--space-sm);
+  align-items: center;
+  justify-content: space-between;
+  padding-top: var(--space-sm);
+  border-top: 1px solid var(--border);
+}
+
+.winnerText {
+  font-size: var(--text-sm);
+  color: var(--text);
+}
+
+.startButton {
+  background: rgba(57, 217, 138, 0.14);
+  border-color: rgba(57, 217, 138, 0.35);
+  color: var(--text);
+}
+
+.startButton:hover:not(:disabled) {
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-sm);
+}
+
+@media (max-width: 980px) {
+  .header {
+    grid-template-columns: 1fr;
+  }
+
+  .actions {
+    justify-content: flex-start;
+    flex-wrap: wrap;
+  }
+}

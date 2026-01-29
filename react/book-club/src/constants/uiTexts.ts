@@ -16,6 +16,11 @@ export const UI_TEXTS = {
     cancel: "Cancelar",
     close: "Fechar",
     logout: "Sair",
+    closeSuggestForm: "Fechar sugestão",
+    suggestBook: "Sugerir livro",
+    delete: "Excluir",
+    raffleBook: "Sortear livro",
+    refresh: "Recarregar",
   },
 
   aria: {
@@ -25,6 +30,7 @@ export const UI_TEXTS = {
     quickNav: "Navegação rápida",
     selectClub: "Selecionar clube",
     sidebar: "Menu lateral",
+    starRating: "Avaliação por estrelas",
   },
 
   club: {
@@ -32,8 +38,11 @@ export const UI_TEXTS = {
     messageWelcome:
       "Seja bem-vindo ao Book Club! Vamos começar essa jornada literária juntos!",
     messageMember:
-      "Olá, {name}! Pronto para mergulhar em novas histórias?",
+      "Olá, {name}!",
     progress: "Progresso do livro",
+    currentClub: "Clube atual",
+    user: "Usuário",
+    clubTitle: "Clube: {clubName}",
   },
 
   book: {
@@ -41,9 +50,26 @@ export const UI_TEXTS = {
     reading: "Lendo",
     read: "Lido",
     finish: "Marcar como lido",
-    finished: "Livro finalizado",
-    rate: "Avaliar livro",
-    rated: "Livro avaliado",
+    finished: "Concluído pelo clube!",
+    rate: "Avaliar",
+    rated: "Avaliado",
+    rating: "Avaliação",
+    ratings: "Avaliações",
+    averageRating: "Avaliação média",
+    noBooks: "Nenhum livro encontrado. Que tal sugerir o primeiro?",
+    noRating: "Sem avaliações",
+    cover: "Capa do livro",
+    noCover: "Sem capa",
+    ratingClub: "Avaliação do clube",
+    finishClub: "Finalizações do clube",
+    currentBook: "Livro atual",
+    noReadBooks: "Nenhum livro em leitura",
+    books: "livro(s)",
+    noBooksInCategory: "Nenhum livro nesta categoria",
+    status: "Status:",
+    finishBook: "Finalizaram",
+    members: "membros", 
+    finishBookMsg: "Parabéns por finalizar o livro!",
   },
 
   messages: {
@@ -51,6 +77,59 @@ export const UI_TEXTS = {
     alreadyRated: "Você já avaliou este livro",
     onlyOnce: "Essa ação só pode ser feita uma vez",
     loading: "Carregando...",
+    loadingClub: "Carregando clube…",
+    loadingBooks: "Carregando livros…",
+    bookSuggested: "Livro sugerido com sucesso!",
+    bookFinished: "Parabéns por finalizar o livro!",
+    bookRated: "Obrigado por avaliar o livro!",
     lastAccess: "Último acesso: {dateTime}",
+    saving: "Salvando...",
+    errorGeneric: "Erro: ",
+    firstFinishBook: "Finalize o livro para avaliar.",
+    clickToRate: "Clique nas estrelas para enviar sua avaliação.",
+    clickToUpdateRate: "Clique nas estrelas para alterar sua avaliação.",
+    noClubSelected: "Nenhum clube selecionado",
+    errorLoadingBooks: "Erro ao carregar livros",
+    failedToLoadData: "Falha ao carregar dados.",
+    impossibleAction: "Ação impossível de ser realizada.",
+    raffing: "Sorteando...",
+    startingReading: "Escolhido! Começar a leitura?",
+    warningStartReading: "Finalize/encerre a leitura atual para poder sortear outro.",
+    alreadyInReading: "Já existe um livro em leitura no clube.",
   },
+
+  dashboard: {
+    total: "Total de livros",
+    read: "Livros lidos",
+    reading: "Livros em leitura",
+    error: "Erro ao carregar dados do dashboard",
+  },
+
+  bookSuggestForm: {
+    title: "Sugerir novo livro",
+    searchLabel: "Buscar sugestão (Google Books)",
+    searchPlaceholder: "Ex: Pragmatic Programmer",
+    searchLoading: "Buscando…",
+    titleBook: "Título",
+    author: "Autor",
+    imageUrl: "URL da imagem (opcional)",
+    submit: "Cadastrar sugestão",
+    submitting: "Cadastrando…",
+  },
+
+  filters:{
+    searchPlaceholder: "Título ou autor…",
+    read: "Lidos",
+    suggested: "Sugeridos",
+    reading: "Lendo",
+    total: "Total",
+    sortBy: "Ordenar por",
+    sortRatingDesc: "Avaliação (maior para menor)",
+    sortTitleAsc: "Título (A-Z)",
+    sortTitleDesc: "Título (Z-A)",
+    closeAdvancedSearch: "Fechar busca avançada",
+    advancedSearch: "Busca avançada",
+    clearFilters: "Limpar filtros",
+  }
+
 } as const;

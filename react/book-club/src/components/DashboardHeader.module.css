@@ -1,0 +1,17 @@
+.header {
+  display: grid;
+  gap: var(--space-xs);
+}
+
+.title {
+  margin: 0;
+  font-size: var(--text-xl);
+  line-height: 1.2;
+  color: var(--text);
+}
+
+.subtitle {
+  margin: 0;
+  color: var(--muted);
+  font-size: var(--text-base);
+}
